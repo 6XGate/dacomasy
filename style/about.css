@@ -1,0 +1,42 @@
+/* $SixXGate: webapps/dacomasy/www/style/about.css,v 1.2 2005/07/21 23:05:21 matthew Exp $ */
+
+html { margin: 0; padding: 0; }
+body { margin: 0; padding: 1em; }
+html, body {
+	background-color: ButtonFace;
+	color: ButtonText;
+	font: message-box;
+}
+
+p {
+	margin: 1em; padding: 0;
+	text-align: center;
+	font: message-box;
+}
+
+strong {
+	font-size: larger;
+}
+
+em {
+	font-style: inherit;
+	font-weight: bolder;
+}
+
+div p {
+	color: GrayText;
+	font-style: italic;
+}
+
+button {
+	font: message-box;
+	padding: 0.25em 2em;
+}
+
+iframe {
+	border: 1px solid ThreedShadow;
+	background-color: Window;
+	color: WindowText;
+	-moz-appearance: treeview;
+	height: 18em;
+}

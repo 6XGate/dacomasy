@@ -1,0 +1,5 @@
+# $SixXGate: webapps/dacomasy/www/system/.htaccess,v 1.1.1.1 2005/07/21 22:57:32 matthew Exp $
+
+Order allow,deny
+Deny from all
+Allow from all

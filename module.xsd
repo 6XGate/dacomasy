@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.sixxgate.com/schema/dacomasy1/DacomasyModule" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sixxgate.com/schema/dacomasy1/DacomasyModule" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+<xs:simpleType name="Boolean">
+<xs:annotation/>
+<xs:restriction base="xs:token">
+<xs:enumeration value="y"/>
+<xs:enumeration value="n"/>
+<xs:enumeration value="yes"/>
+<xs:enumeration value="no"/>
+<xs:enumeration value="t"/>
+<xs:enumeration value="f"/>
+<xs:enumeration value="true"/>
+<xs:enumeration value="false"/>
+<xs:enumeration value="0"/>
+<xs:enumeration value="1"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="ListControlType">
+<xs:annotation/>
+<xs:restriction base="xs:token">
+<xs:enumeration value="list"/>
+<xs:enumeration value="radio"/>
+<xs:enumeration value="combo"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:attributeGroup name="FieldCoreAttr">
+<xs:annotation/>
+<xs:attribute name="name" use="required">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:NCName">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="label" use="required">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:token">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="editonly" type="Boolean" use="optional" default="no">
+<xs:annotation/>
+</xs:attribute>
+<xs:attribute name="intable" type="Boolean" use="optional" default="no">
+<xs:annotation/>
+</xs:attribute>
+<xs:attribute name="allownull" type="Boolean" use="optional" default="no">
+<xs:annotation/>
+</xs:attribute>
+</xs:attributeGroup>
+<xs:attributeGroup name="FileTypeAndSize">
+<xs:annotation/>
+<xs:attribute name="ctype" use="required">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:NCName">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="csize" use="required">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:NCName">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="max" type="xs:integer" use="optional">
+<xs:annotation/>
+</xs:attribute>
+</xs:attributeGroup>
+<xs:attributeGroup name="Limited">
+<xs:annotation/>
+<xs:attribute name="max" type="xs:integer" use="optional">
+<xs:annotation/>
+</xs:attribute>
+<xs:attribute name="min" type="xs:integer" use="optional">
+<xs:annotation/>
+</xs:attribute>
+</xs:attributeGroup>
+<xs:attributeGroup name="Floaters">
+<xs:annotation/>
+<xs:attributeGroup ref="Limited"/>
+<xs:attribute name="decimal" type="xs:integer" use="optional">
+<xs:annotation/>
+</xs:attribute>
+</xs:attributeGroup>
+<xs:group name="Common">
+<xs:annotation/>
+<xs:sequence>
+<xs:element name="describe">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="preserve"/>
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:element name="tooltip">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:token">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+</xs:sequence>
+</xs:group>
+<xs:element name="module">
+<xs:annotation/>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="head">
+<xs:annotation/>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="name">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:token">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:element>
+<xs:group ref="Common"/>
+<xs:element name="server">
+<xs:annotation/>
+<xs:complexType>
+<xs:attribute name="username" use="required">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="replace"/>
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="password" use="required">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:string">
+<xs:whiteSpace value="replace"/>
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="hostname" use="optional">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:token">
+<xs:minLength value="1"/>
+<xs:whiteSpace value="collapse"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="panels">
+<xs:annotation/>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="panel" maxOccurs="unbounded">
+<xs:annotation/>
+<xs:complexType>
+<xs:sequence>
+<xs:group ref="Common"/>
+<xs:element name="tabledef">
+<xs:annotation/>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="index">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+</xs:complexType>
+</xs:element>
+<xs:element name="supersort" minOccurs="0">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+</xs:complexType>
+</xs:element>
+<xs:element name="password" minOccurs="0">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attributeGroup ref="Limited"/>
+</xs:complexType>
+</xs:element>
+<xs:element name="modulepermission" minOccurs="0">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+</xs:complexType>
+</xs:element>
+<xs:choice maxOccurs="unbounded">
+<xs:element name="text">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attribute name="max" type="xs:integer" use="optional">
+<xs:annotation/>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+<xs:element name="datetime">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attribute name="only" use="optional">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:token">
+<xs:enumeration value="date"/>
+<xs:enumeration value="time"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+<xs:element name="link">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attribute name="max" type="xs:integer" use="optional">
+<xs:annotation/>
+</xs:attribute>
+<xs:attribute name="href" use="required">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:NCName">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+<xs:element name="picture">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attributeGroup ref="FileTypeAndSize"/>
+<xs:attribute name="filename" use="optional">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:NCName">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+<xs:element name="file">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attributeGroup ref="FileTypeAndSize"/>
+<xs:attribute name="filename" use="required">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:NCName">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+<xs:element name="list">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attribute name="as" type="ListControlType" use="optional" default="list">
+<xs:annotation/>
+</xs:attribute>
+<xs:attribute name="selections" use="required">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:token">
+<xs:minLength value="1"/>
+<xs:whiteSpace value="collapse"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+<xs:element name="fieldlist">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attribute name="as" type="ListControlType" use="optional" default="list">
+<xs:annotation/>
+</xs:attribute>
+<xs:attribute name="fillwith" use="required">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:NCName">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="showas" use="required">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:NCName">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="table" type="xs:NCName" use="required">
+<xs:annotation/>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+<xs:element name="richtext">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attribute name="max" type="xs:integer" use="optional">
+<xs:annotation/>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+<xs:element name="plaintext">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attribute name="max" type="xs:integer" use="optional">
+<xs:annotation/>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+<xs:element name="boolean">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+</xs:complexType>
+</xs:element>
+<xs:element name="integer">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attributeGroup ref="Limited"/>
+</xs:complexType>
+</xs:element>
+<xs:element name="float">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attributeGroup ref="Floaters"/>
+</xs:complexType>
+</xs:element>
+<xs:element name="currency">
+<xs:annotation/>
+<xs:complexType>
+<xs:attributeGroup ref="FieldCoreAttr"/>
+<xs:attributeGroup ref="Floaters"/>
+<xs:attribute name="symbol" type="xs:string" use="optional">
+<xs:annotation/>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+</xs:choice>
+</xs:sequence>
+<xs:attribute name="intialsort" use="optional">
+<xs:annotation/>
+<xs:simpleType>
+<xs:restriction base="xs:NCName">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+<xs:attribute name="name" use="required">
+<xs:simpleType>
+<xs:restriction base="xs:token">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="db" use="required">
+<xs:simpleType>
+<xs:restriction base="xs:NCName">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+<xs:attribute name="table" use="required">
+<xs:simpleType>
+<xs:restriction base="xs:NCName">
+<xs:minLength value="1"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:attribute>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>

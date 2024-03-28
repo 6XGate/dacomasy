@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $SixXGate: webapps/dacomasy/www/system/modules/example.xml,v 1.1.1.1 2005/07/21 22:57:33 matthew Exp $ -->
+<module xmlns="http://www.sixxgate.com/schema/dacomasy1/DacomasyModule" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sixxgate.com/schema/dacomasy1/DacomasyModule http://www.sixxgate.com/schema/dacomasy1/DacomasyModule.xsd">
+	<head>
+		<name>Example</name>
+		<describe>An example module</describe>
+		<tooltip>Example module</tooltip>
+		<server username="dacomasy" password="password"/>
+	</head>
+	<panels>
+		<panel name="Example" db="dacomasy" table="example">
+			<describe>An example panel</describe>
+			<tooltip>Example panel</tooltip>
+			<tabledef>
+				<index name="uid" label="Index"/>
+				<text name="name" label="Name" intable="yes" max="50"/>
+				<richtext name="description" label="Description"/>
+				<picture name="picture" label="Photo" ctype="picture_type" csize="picture_size" allownull="yes"/>
+				<currency name="price" label="Price" decimal="2" symbol="$" intable="yes"/>
+				<boolean name="instock" label="In Stock"/>
+				<datetime name="getdate" label="Will Be In Stock On" only="date" allownull="yes"/>
+				<link name="company" label="Maker" href="company_link" allownull="yes"/>
+				<fieldlist name="catuid" label="Category" table="catagories" showas="name" fillwith="uid" intable="yes" as="combo"/>
+			</tabledef>
+		</panel>
+		<panel name="Record Catagories" db="dacomasy" table="catagories">
+			<describe>This panel adds, removes, and renames the catagories that records are placed in.</describe>
+			<tooltip>Adds, removes, and renames catagories.</tooltip>
+			<tabledef>
+				<index name="uid" label="Index"/>
+				<supersort name="place" label="Position" intable="yes"/>
+				<text name="name" label="Category" max="50" intable="yes"/>
+				<richtext name="description" label="Description" allownull="yes"/>
+			</tabledef>
+		</panel>
+	</panels>
+</module>

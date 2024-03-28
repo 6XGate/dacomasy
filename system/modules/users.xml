@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $SixXGate: webapps/dacomasy/www/system/modules/users.xml,v 1.1.1.1 2005/07/21 22:57:33 matthew Exp $ -->
+<module xmlns="http://www.sixxgate.com/schema/dacomasy1/DacomasyModule" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sixxgate.com/schema/dacomasy1/DacomasyModule http://www.sixxgate.com/schema/dacomasy1/DacomasyModule.xsd">
+	<head>
+		<name>Access Control</name>
+		<describe>This modules is used to control access to the Content Control Panel</describe>
+		<tooltip>Dacomasy Access Control</tooltip>
+		<server username="dacomasy" password="password"/>
+	</head>
+	<panels>
+		<panel name="Users" db="dacomasy" table="users">
+			<describe>This panel adds, removes, and changes the password for users who have access to the Content Control Panel</describe>
+			<tooltip>Adds, removes, and changes the password of users</tooltip>
+			<tabledef>
+				<index name="uid" label="Index"/>
+				<password name="password" label="Password" intable="yes" min="6"/>
+				<modulepermission name="permission" label="Can Access"/>
+				<text name="username" label="Username" intable="yes"/>
+			</tabledef>
+		</panel>
+	</panels>
+</module>

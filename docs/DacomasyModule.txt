@@ -1,0 +1,397 @@
+________________________________________________________________________________
+Dacomasy version 1.0 Module Standard Specification (DacomasyModule) - Draft
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Introduction
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Dacomasy is an Multi-Purpose Website Database Content Management System.  It is designed to make managing website content stored in databases easier to create, modify, remove, sort, and review.  This document describes the format for Dacomasy modules.  Module are XML files that are designed to manage a set of tables with a common purpose in a database.  These tables are managed by Panels, a sub-section of a module that defines how the fields in that table are represented and managed by Dacomasy.
+
+The Begining
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+All Dacomasy modules must be well-formed XML documents and and include the proper DacomasyModule DOCTYPE:
+<!DOCTYPE module PUBLIC "-//6XGate//DTD DacomasyModule 1.0//EN"
+"http://www.sixxgate.com/xmldtd/dacomasy1/module.dtd">
+
+Though recommended, the module may include the XML version and encoding tag, and should be encoded in UTF-8.
+
+The root of a DacomasyModule document is the <module> tag.  This tag is where is all begins.
+
+Example 1: =====================================================================
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//6XGate//DTD DacomasyModule 1.0//EN">
+<module>...
+================================================================================
+
+The Module's Header
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Every module must contain a <head> tag as the first tag under the <module> tag.  The head tag contains information about the name of the module and information for user agent to use when describing the module.  The tags used by the module includes <name>, <describe>, <tooltip>, and <server>, and must be included in that order.
+
+The <name> tag is the user friendly name of the module.  This should be displayed when listing the modules for the user to select.
+
+The <describe> tag is a long description of what the module does and can be used to inform the user what the module does.
+
+The <tooltip> tag is a short description of what the module does and should be used when the user hovers a mouse over its name.
+
+The <server> tag is used to define tell Dacomasy the hostname of the database server, and the username and password to logon to it.  The <server> tag requires these attributes to define this information.  The "username" attribute, and the "password" attribute.  The "hostname" attribute is a fully qualified hostname or IP address to the server.  If "hostname", is omitted, then Dacomasy will assume that the database server is on the same computer it is running on.
+
+Example 2: =====================================================================
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//6XGate//DTD DacomasyModule 1.0//EN">
+<module>
+	<head>
+		<name>Guests</name>
+		<describe>This modules is used to add and remove guests that
+		will be attending the convention</describe>
+		<tooltip>Adds and removes guests</tooltip>
+		<server username="username" password="password"/>
+	</head>...
+================================================================================
+Panels
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Panels are the part of the module document that defines how Dacomasy will manage a given table in a database.  For this to be possible, every field in a table must be handled by only one tag in a panel.  Some tags even handle multiple panels related to a single piece of content.  A module can contain multiple panels since a module is a simple way to group panels with a common purpose.  One such use of a multiple panel module is handling a table that stores links and one that stores the names and positions of the categories that the links will be placed in.
+
+A module must always contain a <panels> tag right after the <head> tag.  The <panels> tag must contain one or more <panel> tags.  The <panel> tags define panels in the module.  Each contains information about the panel.  The "name" attribute of the <panel> tag specifies the name of the panel.  The "database" and "table" attributes specify which table this panel manages.  The <tooltip> and <describe> tags service the same purpose for the <panel> tag as it does for the <module> tag.  The <panel> tag must contain <tooltip> and <describe> tag in that order, and also must contain a <tabledef> tag after them.
+
+Example 3: =====================================================================
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//6XGate//DTD DacomasyModule 1.0//EN">
+<module>
+	<head>
+		<name>Guests</name>
+		<describe>This modules is used to add and remove guests that
+		will be attending the convention</describe>
+		<tooltip>Adds and removes guests</tooltip>
+		<server username="username" password="password"/>
+	</head>
+	<panels>
+		<panel name="Guests" db="mobicon" table="guests">
+			<tooltip>Adds, removes, and modifies individual
+			guests</tooltip>
+			<describe>This panel adds, removes, and modifies
+			individual guests that will be attending
+			MOBICON</describe>
+			<tabledef>...
+
+================================================================================
+Table Structure
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+The <tabledef> tag defines the structure of the database table to Dacomasy as well as the use of each field in the table.  Every field in a table must be defined in at least on tag under <tabledef>  Some of the tags under <tabledef> will define multiple fields in the database table as a single panel field.  The field tags are described in more detail at the end of this document.
+
+DacomasyModule Reference
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Attribute Types:
+string - Must contain a string of text.
+boolean - A true or false attribute.  May also be yes, no, y, n, t, f ,1, or 0.
+integer - Must contain a number.
+selection - Must contain only certain values.
+
+Field Types:
+There are two types of fields in Dacomasy.  One is a "table field," this field is stored in the database table.  The other is a "panel field," this is the field defined by the module to handle one or more "table fields."
+
+Requirements:
+If an attribute is required, then it will have an asterisk ("*") in front of it.  All other fields are implied or have a default.
+
+<module>
+Description:
+	This is the root of the module document.
+Attributes:
+	none
+Rules:
+	Must contain the <head> tag followed by the <panels> tag.
+
+<head>
+Description:
+	Contains information about the module like the description, database server to use and the name of the module.
+Attributes:
+	none
+Rules:
+	Must contain the <name>, <describe>, <tooltip>, and <server> tags in that order.
+
+<panels>
+Description:
+	Contains all the panels in the module.
+Attributes:
+	none
+Rules:
+	Must contain one or mode <panel> tags.
+
+<describe>
+Description:
+	Contains a long description of the module or a panel.
+Attributes:
+	none
+Rules:
+	Must contain only text.
+<tooltip>
+Description:
+	Contains a short popup description for the module or a panel.
+Attributes:
+	none
+Rules:
+	Must contain only text.
+
+<name>
+Description:
+	Contains the name of the module
+Attributes:
+	none
+Rules:
+	Must contain only text.
+
+<server>
+Description:
+	Contains the hostname of the database server and the username and password to access it.
+Attributes:
+	string: hostname - A fully qualified hostname or IP address
+	string: *username - The username
+	string: *password - The password
+Rules:
+	Must be empty.
+
+<panel>
+Description:
+	Contains the definition of a panel in the module
+Attributes:
+	string: *name - The name of the panel
+	string: *db - The name of the database for the panel
+	string: *table - The name of the table the panel manages
+Rules:
+	Must contain the <tooltip>, <describe>, and <tabledef> tags in that order.
+
+<tabledef>
+Description:
+	Defines the structure of a database table and the use for its fields.
+Attributes:
+	none
+Rules:
+	Must contain an <index> tag, followed optionally by a <supersort>, <password>, and/or <modulepermission> tags in that order, then followed by one or more of any of the following tag in any order: <text>, <datetime>, <link>, <picture>, <file>, <list>, <fieldlist>, <richtext>, <plaintext>, <boolean>, <integer>, <float>, <currency>, and/or <static>.
+
+<index>
+Description:
+	Defines the table field the is used to uniquely identify records in the panel.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+Rules:
+	Must be empty
+
+<text>
+Description:
+	Defines a single-line plain-text field.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - Maximum number of characters in the field.
+Rules:
+	Must be empty
+
+<datetime>
+Description:
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	selection: only - Set to "time" or "date" to store only that.
+Rules:
+	Must be empty
+
+<link>
+Description:
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - Maximum length of the field.
+	string: *href - The URL of the link.
+Rules:
+	Must be empty
+
+<picture>
+Description:
+	Stores an uploaded image.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - Maximum size of the image.
+	string: *ctype - The name of the table field that will store the MIME type of the image.
+	string: *csize - The name of the table field that will store the size of the image.
+	string: filename - The name of the table field that will store the file name of the image.
+Rules:
+	Must be empty
+
+<picture>
+Description:
+	Stores an uploaded file.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - Maximum size of the file.
+	string: *ctype - The name of the table field that will store the MIME type of the file.
+	string: *csize - The name of the table field that will store the size of the file.
+	string: *filename - The name of the table field that will store the file name of the file.
+Rules:
+	Must be empty
+
+<list>
+Description:
+	Defines a set of selection to choose from and stores the index of the selection.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	string: *selection - Contains a list of selection seperated by pipes.  The first selection indexed 0.
+	selection: as - Defines what type of control or controls will represent this field in the record forms.  It may be "list" for a list box, "radio" for a group of radio buttons, or "combo" for a drop down menu.  The default is "list"
+Rules:
+	Must be empty
+
+<fieldlist>
+Description:
+	Defines a table to get a acquire of selection from for this field.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	string: *table - The table that the selection are stored in.
+	string: *fillwith - The table field from the selection table that will contain the data to store as the selection in panel's table.
+	string: *showas - The table field from the selection table what will contain the labels to show for the selections.
+	selection: as - Defines what type of control or controls will represent this field in the record forms.  It may be "list" for a list box, "radio" for a group of radio buttons, or "combo" for a drop down menu.  The default is "list"
+Rules:
+	Must be empty
+
+<richtext>
+Description:
+	Stores a fragment of an HTML document.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - Maximum size of the fragment.
+Rules:
+	Must be empty
+
+<plaintext>
+Description:
+	Store multi-line plain-text information.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - Maximum size of the field.
+Rules:
+	Must be empty
+
+<boolean>
+Description:
+	Stores a true or false in the field.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - Not used.
+Rules:
+	Must be empty
+
+<supersort>
+Description:
+	Defines a table field that will be used to store the position of the records for manual sorting.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - Not used.
+Rules:
+	Must be empty
+
+
+<integer>
+Description:
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - The maximum number that can be stored.
+	integer: min - The minimum number that can be stored.
+Rules:
+	Must be empty
+
+<float>
+Description:
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - The maximum number that can be stored.
+	integer: min - The minimum number that can be stored.
+	integer: decimal - Fix the field to only these number of decimal places.
+Rules:
+	Must be empty
+
+<currency>
+Description:
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - The maximum number that can be stored.
+	integer: min - The minimum number that can be stored.
+	integer: decimal - The number of decimal places to store.
+	integer: symbol - The symbol to show in front of the field.
+Rules:
+	Must be empty
+
+<password>
+Description:
+	Stores an MD5 hashed password.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - Maximum password length
+	integer: min - Minimum password length
+Rules:
+	Must be empty
+
+<static>
+Description:
+	Stores a constant value in the database.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - Not used.
+	string: *value - The value to store.
+	boolean: hidden - Set to true to hide this field from the record forms.
+Rules:
+	Must be empty
+
+<modulepermission>
+Description:
+	Contains a pipe separated list of modules that a user has access to.  This field has not real use in any other module other than the built-in Access Control module.
+Attributes:
+	string: *name - The name of the table field for this panel field
+	string:	*label - The name of the panel field
+	boolean: editonly - Set true to make the field only appear when editing a record.
+	boolean: intable - Set true to make the field appear when listing the records in the table.
+	integer: max - Not used.
+Rules:
+	Must be empty

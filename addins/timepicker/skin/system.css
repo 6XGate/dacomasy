@@ -1,0 +1,33 @@
+/* $SixXGate */
+
+.TimePickerBody {
+	background-color: ButtonFace;
+	border: 1px solid;
+	border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
+	padding: 2px;
+	margin:0;
+	text-align: center;
+	cursor: default;
+}
+
+.TimePickerField {
+	background-color: Window;
+	border: 1px solid ButtonShadow;
+	vertical-align: top;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#TimePickerSelected {
+	color: HighlightText;
+	background-color: Highlight;
+	border-color: WindowFrame;
+}
+
+#TimePickerActive {
+	color: WindowText;
+	background-color: Window;
+	border-color: WindowFrame;
+}

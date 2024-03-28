@@ -1,0 +1,47 @@
+/* $SixXGate: webapps/dacomasy/www/style/lists.css,v 1.2 2005/07/21 23:05:22 matthew Exp $ */
+
+table {
+	border: 1px solid ThreeDShadow;
+	background-color: Window;
+	color: WindowText;
+	width: 100%;
+	border-spacing: 1px;
+	empty-cells: show;
+	-moz-appearance: treeview;
+}
+
+tr {
+	height: 0.5em;
+	overflow: hidden;
+	max-height: 90px;
+}
+
+td {
+	padding: 0.125em;
+	height: 1em;
+	overflow: hidden;
+	max-height: 90px;
+}
+
+th {
+	white-space: nowrap;
+	border: 1px solid ThreeDShadow;
+	background-color: ButtonFace;
+	color: ButtonText;
+	font: message-box;
+	text-align: left;
+	-moz-appearance: treeheadercell;
+}
+
+.functionCol { width:100px; }
+
+.function:hover, .function:focus {
+	background-color: transparent;
+	color: inherit;
+}
+
+.function img {
+	width: 16px;
+	height: 16px;
+	border: 0 none;
+}

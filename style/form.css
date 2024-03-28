@@ -1,0 +1,149 @@
+/* $SixXGate: webapps/dacomasy/www/style/form.css,v 1.2 2005/07/21 23:05:21 matthew Exp $ */
+
+div {
+	margin: 0 0 0.5em 0;
+	padding: 0;
+}
+
+input.fieldText {
+	width: 99%;
+	margin: 0 auto;
+	padding: 0.125em 0;
+	display: block;
+}
+
+label.fieldText {
+	width: 99%;
+	margin: 0 auto;
+	padding: 0;
+	display: block;
+}
+
+fieldset.fieldLink {
+	border: 1px solid ThreedShadow;
+	-moz-border-radius: 0.5em;
+}
+
+input.fieldLink {
+	width: 99%;
+	margin: 0 auto;
+	padding: 0.125em 0;
+	display: block;
+}
+
+label.fieldLink {
+	width: 99%;
+	margin: 0 auto;
+	padding: 0;
+	display: block;
+}
+
+fieldset.fieldList {
+	border: 1px solid ThreedShadow;
+	-moz-border-radius: 0.5em;
+}
+
+select.fieldList {
+	width: 99%;
+	margin: 0 auto;
+	padding: 0.125em 0;
+	display: block;
+}
+
+label.fieldList {
+	width: 99%;
+	margin: 0 auto;
+	padding: 0;
+	display: block;
+}
+
+input.fieldList {
+	margin: 0 0.25em; padding: 0;
+	vertical-align: middle;
+}
+
+fieldset.fieldList label.fieldList {
+	display: inline !important;
+	width: auto;
+	margin: 0; padding: 0;
+}
+
+label.fieldRichEdit {
+	width: 99%;
+	margin: 0 auto;
+	padding: 0;
+	display: block;
+}
+
+textarea.fieldRichEdit {
+	width: 99%;
+	height: 25em;
+	margin: 0 auto;
+	padding: 0;
+	display: block;
+	border: 1px solid ThreedShadow;
+	-moz-appearance: treeview;
+}
+
+iframe.fieldRichEdit {
+	border: 0 none;
+}
+
+div.htmlarea {
+	-moz-appearance: treeview;
+	border: 1px solid ThreedShadow;
+	margin: 0 auto; padding: 0;
+	width: 99%;
+}
+
+div.htmlarea div {
+	margin: 0; padding: 0;
+}
+
+label.fieldDateTime {
+	width: 99%;
+	margin: 0 auto;
+	padding: 0;
+	display: block;
+}
+
+input.fieldDateTime {
+	width: 13em; 
+}
+
+button.fieldDateTime {
+}
+
+label.fieldUpload {
+	width: 99%;
+	margin: 0 auto;
+	padding: 0;
+	display: block;
+}
+
+input.fieldUpload {
+	margin: 0;
+	padding: 0.125em 0;
+	display: block;
+}
+
+img.fieldUpload {
+	display: block;
+}
+
+#InvalidForm {
+	width: 99%;
+	margin: 0.5em auto;
+	padding: 0;
+	display: block;
+	color: Red;
+	font-size: larger;
+}
+
+.InvalidMessage {
+	width: 99%;
+	margin: 0 auto;
+	padding: 0;
+	display: block;
+	color: Red;
+}

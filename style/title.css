@@ -1,0 +1,24 @@
+/* $SixXGate: webapps/dacomasy/www/style/title.css,v 1.2 2005/07/21 23:05:22 matthew Exp $ */
+
+html, body {
+	background-color: ActiveCaption;
+	color: CaptionText;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1pc;
+	font-weight: bolder;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	vertical-align: middle;
+}
+
+p {
+	vertical-align: middle;
+	margin: 0.125em; padding: 0;
+}
+
+button {
+	float: right;
+	display: block;
+	font: message-box;
+}

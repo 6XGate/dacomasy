@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module
+	xmlns="http://www.sixxgate.com/schema/dacomasy1/DacomasyModule"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.sixxgate.com/schema/dacomasy1/DacomasyModule
+						http://www.sixxgate.com/schema/dacomasy1/DacomasyModule.xsd">
+	<head>
+		<name>Test Module</name>
+		<describe>This is a test module for testing the DacomasyModule W3C XML Schema.  It will be used to test all possible bugs the schema may have.</describe>
+		<tooltip>Test Module</tooltip>
+		<server password="password" username="username" hostname="192.168.0.1"/>
+	</head>
+	<panels>
+		<panel table="sample" db="sample" name=" Name ">
+			<describe>Sample Panel</describe>
+			<tooltip>Sample Panel</tooltip>
+			<tabledef>
+				<index label="Record Index" name="index"/>
+				<text label="Text" name="text"/>
+			</tabledef>
+		</panel>
+	</panels>
+</module>
